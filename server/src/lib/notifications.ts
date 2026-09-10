@@ -4,8 +4,15 @@ import { notifications, type notificationTypeEnum } from "../db/schema.js";
 type NotificationType = (typeof notificationTypeEnum.enumValues)[number];
 
 interface CreateNotificationParams {
-  workspaceId: string; recipientId: string; type: NotificationType; title: string;
-  body?: string; taskId?: string; projectId?: string; actorId: string; actorName: string;
+  workspaceId: string;
+  recipientId: string;
+  type: NotificationType;
+  title: string;
+  body?: string;
+  taskId?: string;
+  projectId?: string;
+  actorId: string;
+  actorName: string;
 }
 
 // Real-time delivery (Supabase Realtime) and email fan-out are wired up in

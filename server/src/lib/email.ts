@@ -4,16 +4,30 @@ import { env } from "../env.js";
 const resend = new Resend(env.RESEND_API_KEY);
 const FROM = "DevBoard <notifications@devboard.app>";
 
-async function sendEmail(params: { to: string; subject: string; html: string }) {
+async function sendEmail(params: {
+  to: string;
+  subject: string;
+  html: string;
+}) {
   try {
-    const { error } = await resend.emails.send({ from: FROM, to: params.to, subject: params.subject, html: params.html });
+    const { error } = await resend.emails.send({
+      from: FROM,
+      to: params.to,
+      subject: params.subject,
+      html: params.html,
+    });
     if (error) console.error("Resend send error:", error);
   } catch (err) {
     console.error("Email send failed:", err); // rule 12: email sending never throws
   }
 }
 
-export async function sendInviteEmail(params: { to: string; workspaceName: string; inviterName: string; token: string }) {
+export async function sendInviteEmail(params: {
+  to: string;
+  workspaceName: string;
+  inviterName: string;
+  token: string;
+}) {
   const acceptUrl = `${env.FRONTEND_URL}/invite?token=${params.token}`;
   await sendEmail({
     to: params.to,
